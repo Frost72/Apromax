@@ -7,6 +7,34 @@
         mc:Ignorable="d"
         Title="Quadratic" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="Xpoint0" Grid.Row="0" Grid.Column="0" Width="50" Height="40" Margin="71,23,279,24"/>
+        <Label Content="x0:" Grid.Row="0" Grid.Column="0" Height="40" Margin="29,23,334,24" FontSize=" 20"/>
+        <TextBox x:Name="Ypoint0" Grid.Row="0" Grid.Column="0" Width="50" Height="40" Margin="280,23,70,24"/>
+        <Label Content="y0:" Grid.Row="0" Grid.Column="0" Height="40" Margin="238,23,125,24" FontSize=" 20"/>
+        <TextBox x:Name="Xpoint1" Grid.Row="1" Grid.Column="0" Width="50" Height="40" Margin="71,19,279,28"/>
+        <Label Content="x1:" Grid.Row="1" Grid.Column="0" Height="40" Margin="29,23,334,24" FontSize=" 20"/>
+        <TextBox x:Name="Ypoint1" Grid.Row="1" Grid.Column="0" Width="50" Height="40" Margin="280,23,70,24"/>
+        <Label Content="y1:" Grid.Row="1" Grid.Column="0" Height="40" Margin="238,23,125,24" FontSize=" 20"/>
+        <TextBox x:Name="Xpoint2" Grid.Row="2" Grid.Column="0" Width="50" Height="40" Margin="71,19,279,27"/>
+        <Label Content="x2:" Grid.Row="2" Grid.Column="0" Height="40" Margin="29,23,334,24" FontSize=" 20"/>
+        <TextBox x:Name="Ypoint2" Grid.Row="2" Grid.Column="0" Width="50" Height="40" Margin="280,23,70,23"/>
+        <Label Content="y2:" Grid.Row="2" Grid.Column="0" Height="40" Margin="238,23,125,24" FontSize=" 20"/>
+        <TextBox x:Name="Xtemp" Grid.Row="3" Grid.Column="0" Width="50"  Height="40" Margin="71,24,279,23"/>
+        <Label Content="x:" Grid.Row="3" Grid.Column="0" Height="40" Margin="29,23,334,24" FontSize=" 20"/>
+        <TextBox x:Name="Result" Grid.Row="4" Grid.Column="0" Width="50" Height="40" Margin="121,24,229,23"/>
+        <Label Content="Результат:" Grid.Row="4" Grid.Column="0" Height="40" Margin="11,26,284,21" FontSize=" 20"/>
+        <Button x:Name="Calculate" Content="Рассчитать" Margin="186,22,26,21" Grid.Row="4"/>
+
     </Grid>
 </Window>
