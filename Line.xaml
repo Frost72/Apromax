@@ -1,0 +1,27 @@
+﻿<Window x:Class="Apromax.Line"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Apromax"
+        mc:Ignorable="d"
+        Title="line" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="firstx" Grid.Row="0" Grid.Column="0" Width="50" Height="40" Margin="71,10,279,37"/>
+        <Label Content="x1:" Grid.Row="0" Grid.Column="0" Height="40" Margin="29,10,334,37" FontSize=" 20"/>
+        <TextBox x:Name="firsty" Grid.Row="0" Grid.Column="0" Width="50" Height="40" Margin="261,10,89,37"/>
+        <Label Content="y1:" Grid.Row="0" Grid.Column="0" Height="40" Margin="219,10,144,37" FontSize=" 20"/>
+    </Grid>
+</Window>

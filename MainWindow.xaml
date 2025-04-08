@@ -7,6 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button Content="линейная интерполяция" Name="LineMethod" HorizontalAlignment="Left" Margin="43,37,0,0" VerticalAlignment="Top" Height="60" Width="161" Click="LineMethod_Click" RenderTransformOrigin="0.5,0.5">
+        </Button>
+        <Button Content="квадратичная итерполяция" Name="QuadraticMethod" HorizontalAlignment="Left" Margin="274,37,0,0" VerticalAlignment="Top" Height="60" Width="169" Click="QuadraticMethod_Click"/>
+        <Button Content="кубический сплайн" Name="CubicMethod" HorizontalAlignment="Left" Margin="511,37,0,0" VerticalAlignment="Top" Width="189" Height="60" Click="CubicMethod_Click"/>
+        <Button Content="многочлен Лагранжа" Name="LagranjMethod" HorizontalAlignment="Left" Margin="43,157,0,0" VerticalAlignment="Top" Width="161" Height="57" Click="LagranjMethod_Click"/>
+        <Button Content="многочлен Ньютона" Name="NutonMethod" HorizontalAlignment="Left" Margin="274,157,0,0" VerticalAlignment="Top" Height="57" Width="169" Click="NutonMethod_Click"/>
+        <Button Content="МНК" Name="MnkMethod" HorizontalAlignment="Left" Margin="511,157,0,0" VerticalAlignment="Top" Height="57" Width="189" Click="MnkMethod_Click"/>
+        <Button Content="ряд Тейлора" Name="TeilorMethod" HorizontalAlignment="Left" Margin="43,283,0,0" VerticalAlignment="Top" Height="62" Width="161" Click="TeilorMethod_Click"/>
+        <Button Content="многочлены Чебышева" Name="ChebshevMethod" HorizontalAlignment="Left" Margin="274,287,0,0" VerticalAlignment="Top" Height="58" Width="169" Click="ChebshevMethod_Click"/>
+        <Button Content="ряд Фурье" Name="FurieMethod" HorizontalAlignment="Left" Margin="511,287,0,0" VerticalAlignment="Top" Height="58" Width="189" Click="FurieMethod_Click"/>
 
     </Grid>
 </Window>
