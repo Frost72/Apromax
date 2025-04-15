@@ -56,6 +56,8 @@ namespace Apromax
                     StrokeThickness = 2
                 };
 
+                var output = new System.Text.StringBuilder();
+
                 for (int i = 0; i < points.Count; i++)
                 {
                     scatterSeries.Points.Add(new ScatterPoint(points[i].X, points[i].Y));
@@ -66,13 +68,22 @@ namespace Apromax
                     double x0 = points[i].X, y0 = points[i].Y;
                     double x1 = points[i + 1].X, y1 = points[i + 1].Y;
 
+                    double k = (y1 - y0) / (x1 - x0);
+
+                    output.AppendLine($"Интервал [{x0}; {x1}]:");
+                    output.AppendLine($"f(x) = {y0} + ({y1} - {y0}) / ({x1} - {x0}) * (x - {x0})");
+                    output.AppendLine($"     = {y0} + {k:F2} * (x - {x0})");
+
                     lineSeries.Points.Add(new DataPoint(x0, y0));
 
                     for (double xi = x0 + 0.1; xi < x1; xi += 0.1)
                     {
-                        double yi = y0 + (y1 - y0) / (x1 - x0) * (xi - x0);
+                        double yi = y0 + k * (xi - x0);
                         lineSeries.Points.Add(new DataPoint(xi, yi));
+                        output.AppendLine($"  x = {xi:F2}, f(x) = {yi:F2}");
                     }
+
+                    output.AppendLine();
                 }
 
                 lineSeries.Points.Add(new DataPoint(points[^1].X, points[^1].Y));
@@ -80,6 +91,8 @@ namespace Apromax
                 model.Series.Add(scatterSeries);
                 model.Series.Add(lineSeries);
                 PlotView.Model = model;
+
+                OutputTextBox.Text = output.ToString();
             }
             catch (Exception ex)
             {
