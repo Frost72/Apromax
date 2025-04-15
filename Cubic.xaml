@@ -4,9 +4,55 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Apromax"
-        mc:Ignorable="d"
-        Title="Cubic" Height="450" Width="800">
-    <Grid>
+        xmlns:oxy="http://oxyplot.org/wpf"
         
+        mc:Ignorable="d"
+        Title="Cubic" Height="632" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Панель ввода данных -->
+        <GroupBox Grid.Column="0" Header="Ввод данных" Margin="5">
+            <StackPanel>
+                <Label Content="X:"/>
+                <TextBox x:Name="txtX" Margin="0,0,0,5"/>
+                <Label Content="Y:"/>
+                <TextBox x:Name="txtY" Margin="0,0,0,10"/>
+
+                <Button x:Name="btnAddPoint" Content="Добавить точку" Click="BtnAddPoint_Click" Margin="0,0,0,10"/>
+                <Button x:Name="btnClear" Content="Очистить все" Click="BtnClear_Click" Margin="0,0,0,10"/>
+                <Button x:Name="btnCalculate" Content="Рассчитать сплайн" Click="BtnCalculate_Click" Margin="0,0,0,10"/>
+
+                <Label Content="Введенные точки:"/>
+                <ListView x:Name="lstPoints" Height="102">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="X" DisplayMemberBinding="{Binding X}"/>
+                            <GridViewColumn Header="Y" DisplayMemberBinding="{Binding Y}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Label Content="Коэффициенты сплайнов:"/>
+                <TextBox x:Name="txtCoefficients" Height="121" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" RenderTransformOrigin="0.5,0.5">
+                    <TextBox.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="1.249"/>
+                            <RotateTransform/>
+                            <TranslateTransform X="-0.022"/>
+                        </TransformGroup>
+                    </TextBox.RenderTransform>
+                </TextBox>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- График -->
+        <GroupBox Grid.Column="1" Header="График" Margin="5">
+            <oxy:PlotView x:Name="plotView" Model="{Binding PlotModel}"/>
+        </GroupBox>
     </Grid>
 </Window>
