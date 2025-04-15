@@ -4,9 +4,45 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Apromax"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="Lagranj" Height="450" Width="800">
+        Title="Lagranj" Height="558" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Панель ввода данных -->
+        <GroupBox Grid.Column="0" Header="Ввод данных" Margin="5">
+            <StackPanel>
+                <Label Content="X:"/>
+                <TextBox x:Name="txtX" Margin="0,0,0,5"/>
+                <Label Content="Y:"/>
+                <TextBox x:Name="txtY" Margin="0,0,0,10"/>
+
+                <Button x:Name="btnAddPoint" Content="Добавить точку" Click="BtnAddPoint_Click" Margin="0,0,0,10"/>
+                <Button x:Name="btnClear" Content="Очистить все" Click="BtnClear_Click" Margin="0,0,0,10"/>
+                <Button x:Name="btnCalculate" Content="Рассчитать" Click="BtnCalculate_Click" Margin="0,0,0,10"/>
+
+                <Label Content="Введенные точки:"/>
+                <ListView x:Name="lstPoints" Height="150">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="X" DisplayMemberBinding="{Binding X}"/>
+                            <GridViewColumn Header="Y" DisplayMemberBinding="{Binding Y}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Label Content="Многочлен Лагранжа:"/>
+                <TextBox x:Name="txtPolynomial" Height="100" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- График -->
+        <GroupBox Grid.Column="1" Header="График" Margin="5">
+            <oxy:PlotView x:Name="plotView" Model="{Binding PlotModel}"/>
+        </GroupBox>
     </Grid>
 </Window>
