@@ -4,35 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Apromax"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="line" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="firstx" Grid.Row="0" Grid.Column="0" Width="50" Height="40" Margin="71,10,279,37" Background="#FFF0F0F0"/>
-        <Label Content="x0:" Grid.Row="0" Grid.Column="0" Height="40" Margin="29,10,334,37" FontSize=" 20"/>
-        <TextBox x:Name="firsty" Grid.Row="0" Grid.Column="0" Width="50" Height="40" Margin="261,10,89,37" Background="#FFF0F0F0"/>
-        <Label Content="y0:" Grid.Row="0" Grid.Column="0" Height="40" Margin="219,10,144,37" FontSize=" 20"/>
-        <TextBox x:Name="secondx" Grid.Row="1" Grid.Column="0" Width="50" Height="40" Margin="71,10,279,37" Background="#FFF0F0F0"/>
-        <Label Content="x1:" Grid.Row="1" Grid.Column="0" Height="40" Margin="29,10,334,37" FontSize=" 20"/>
-        <TextBox x:Name="secondy" Grid.Row="1" Grid.Column="0" Width="50" Height="40" Margin="261,10,89,37" Background="#FFF0F0F0"/>
-        <Label Content="y1:" Grid.Row="1" Grid.Column="0" Height="40" Margin="219,10,144,37" FontSize=" 20"/>
-        <TextBox x:Name="pointinter" Grid.Row="2" Grid.Column="0" Width="50" Height="40" Margin="71,10,279,36" Background="#FFF0F0F0"/>
-        <Label Content="x:" Grid.Row="2" Grid.Column="0" Height="40" Margin="29,10,334,36" FontSize=" 20"/>
-        <TextBox x:Name="result" Grid.Row="3" Grid.Column="0" Width="50" Height="40" Margin="118,10,232,37" Background="#FFF0F0F0"/>
-        <Label Content="Результат:" Grid.Row="3" Grid.Column="0" Height="40"  Margin="10,10,287,37" FontSize=" 20"/>
-        <Button x:Name="calculateBtn" Content="Рассчитать" Grid.Row="3"  
-                Width="150" Height="40" Margin="200,10,50,37" FontSize="16" Click="calculateBtn_Click" />
-        <Canvas x:Name="plotCanvas" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="4" Margin="10" Background="#FFF0F0F0"/>
+
+        <StackPanel Orientation="Vertical" Margin="0,0,0,10">
+            <TextBlock Text="Введите точки через запятую (формат: x1,y1; x2,y2; ...):" />
+            <TextBox x:Name="InputTextBox" Height="30" Margin="0,5,0,5"/>
+            <Button Content="Построить график" Click="OnBuildGraphClick" Height="30" Width="150"/>
+        </StackPanel>
+
+        <oxy:PlotView x:Name="PlotView" Grid.Row="1"/>
     </Grid>
 </Window>
