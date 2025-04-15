@@ -42,11 +42,11 @@ namespace Apromax
                     return;
                 }
 
-                // Интерполяция
+               
                 double y = y0 + (y1 - y0) * (x - x0) / (x1 - x0);
                 result.Text = y.ToString("F2");
 
-                // Рисование
+                
                 plotCanvas.Children.Clear();
 
                 double canvasWidth = plotCanvas.ActualWidth;
@@ -58,7 +58,7 @@ namespace Apromax
                 double offsetX = 1 - Math.Min(x0, x1);
                 double offsetY = 1 - Math.Min(y0, y1);
 
-                // Нарисовать линию между (x0, y0) и (x1, y1)
+                
                 WpfLine line = new WpfLine
                 {
                     X1 = (x0 + offsetX) * scaleX,
