@@ -23,5 +23,20 @@ namespace Apromax
         {
             InitializeComponent();
         }
+
+        private void BtnAddPoint_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnClear_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnCalculate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
