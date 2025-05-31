@@ -52,7 +52,7 @@
 
         <!-- График -->
         <GroupBox Grid.Column="1" Header="График" Margin="5">
-            <oxy:PlotView x:Name="plotView" Model="{Binding PlotModel}"/>
+             <oxy:PlotView x:Name="PlotView" Model="{Binding PlotModel}"/>
         </GroupBox>
     </Grid>
 </Window>

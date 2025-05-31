@@ -7,6 +7,33 @@
         mc:Ignorable="d"
         Title="Furie" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Панель управления -->
+        <GroupBox Grid.Column="0" Header="Управление" Margin="5">
+            <StackPanel>
+                <TextBlock Text="Выберите функцию:" Margin="0,0,0,5" FontWeight="Bold"/>
+
+                <RadioButton x:Name="RbSquareWave" Content="Прямоугольный импульс" Margin="5,2" IsChecked="True"/>
+                <RadioButton x:Name="RbTriangleWave" Content="Треугольный импульс" Margin="5,2"/>
+
+                <TextBlock Text="Число членов ряда:" Margin="0,10,0,5" FontWeight="Bold"/>
+                <TextBox x:Name="TxtTerms" Text="5" Margin="0,0,0,10"/>
+
+                <Button x:Name="BtnCalculate" Content="Построить" Margin="0,10" Click="BtnCalculate_Click"/>
+
+                <TextBlock Text="Коэффициенты:" Margin="0,10,0,5" FontWeight="Bold"/>
+                <TextBox x:Name="TxtCoefficients" Height="200" TextWrapping="Wrap" 
+                         VerticalScrollBarVisibility="Auto" IsReadOnly="True"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- График -->
+        <GroupBox Grid.Column="1" Header="График" Margin="5">
+            <oxy:PlotView x:Name="PlotView" Model="{Binding PlotModel}"/>
+        </GroupBox>
     </Grid>
 </Window>
