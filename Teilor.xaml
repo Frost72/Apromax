@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Apromax"
         mc:Ignorable="d"
+         xmlns:oxy="http://oxyplot.org/wpf"
         Title="Teilor" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <!-- Левая панель -->
+            <ColumnDefinition Width="*"/>
+            <!-- График -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Левая панель -->
+        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top" Margin="0 0 10 0">
+            <TextBlock Text="Функция:" Margin="0,0,0,5"/>
+            <ComboBox x:Name="FunctionSelector" Width="150" Margin="0,0,0,10">
+                <ComboBoxItem Content="sin(x)" IsSelected="True"/>
+                <ComboBoxItem Content="cos(x)"/>
+                <ComboBoxItem Content="exp(x)"/>
+                <ComboBoxItem Content="ln(1+x)"/>
+            </ComboBox>
+
+            <TextBlock Text="Центр x₀:" Margin="0,10,0,5"/>
+            <TextBox x:Name="TxtCenter" Width="150" Text="0" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Число членов n:" Margin="0,10,0,5"/>
+            <TextBox x:Name="TxtTerms" Width="150" Text="5" Margin="0,0,0,10"/>
+
+            <Button Content="Построить" Width="150" Click="Build_Click" Margin="0,20,0,0"/>
+        </StackPanel>
+
+        <GroupBox Grid.Column="1" Header="График" Margin="5">
+            <oxy:PlotView x:Name="PlotView" Model="{Binding PlotModel}"/>
+        </GroupBox>
     </Grid>
 </Window>
