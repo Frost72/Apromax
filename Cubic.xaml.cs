@@ -48,6 +48,7 @@ namespace Apromax
             PlotModel = new PlotModel { Title = "Кубический сплайн" };
         }
 
+
         private void UpdatePointsList()
         {
             lstPoints.ItemsSource = null;
@@ -85,7 +86,7 @@ namespace Apromax
         {
             if (double.TryParse(txtX.Text, out double x) && double.TryParse(txtY.Text, out double y))
             {
-                points.Add(new MyDataPoint (x, y));
+                points.Add(new MyDataPoint(x, y));
                 UpdatePointsList();
                 PlotPoints();
             }
@@ -221,7 +222,8 @@ namespace Apromax
                 {
                     double dx = xi - segment.XStart;
                     double yi = segment.A + segment.B * dx + segment.C * dx * dx + segment.D * dx * dx * dx;
-                    lineSeries.Points.Add(new DataPoint(xi, yi));
+                    lineSeries.Points.Add(new OxyPlot.DataPoint(xi, yi));
+
                 }
             }
 

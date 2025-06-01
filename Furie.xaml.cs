@@ -149,7 +149,8 @@ namespace Apromax
             for (double x = from; x <= to; x += step)
             {
                 double y = func(x);
-                originalSeries.Points.Add(new MyDataPoint(x, y));
+                originalSeries.Points.Add(new OxyPlot.DataPoint(x, y));
+
                 originalFunctionPoints.Add(new MyDataPoint(x, y));
             }
 
@@ -166,7 +167,7 @@ namespace Apromax
             for (double x = from; x <= to; x += step)
             {
                 double y = FourierApproximation(x, nTerms);
-                fourierSeries.Points.Add(new MyDataPoint(x, y));
+                fourierSeries.Points.Add(new OxyPlot.DataPoint(x, y));
                 fourierApproximationPoints.Add(new MyDataPoint(x, y));
             }
 
@@ -271,5 +272,6 @@ namespace Apromax
             TxtCoefficients.Text = sb.ToString();
         }
     }
-
+}
+    
     
