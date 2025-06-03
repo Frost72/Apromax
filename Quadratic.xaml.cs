@@ -22,12 +22,12 @@ namespace Apromax
     /// </summary>
     public partial class Quadratic : Window
     {
-        private List<MyDataPoint> originalPoints = new List<MyDataPoint>();
+        private List<MyDataPoint> points = new List<MyDataPoint>();
         private PlotModel plotModel;
         public Quadratic()
         {
             InitializeComponent();
-            InitializePlot();
+            UpdatePlot();
         }
 
         private void BtnAddPoint_Click(object sender, RoutedEventArgs e)
@@ -35,7 +35,7 @@ namespace Apromax
             if (double.TryParse(txtX.Text, out double x) && double.TryParse(txtY.Text, out double y))
             {
                 var point = new MyDataPoint(x, y);
-                originalPoints.Add(point);
+                points.Add(point);
                 lstPoints.Items.Add(point);
                 txtX.Clear();
                 txtY.Clear();
@@ -47,104 +47,150 @@ namespace Apromax
             }
 
         }
-        private void InitializePlot()
-        {
-            plotModel = new PlotModel { Title = "Квадратичная интерполяция" };
-            plotModel.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Title = "X" });
-            plotModel.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Y" });
-
-            plotView.Model = plotModel;
-        }
+       
         private void UpdatePlot()
         {
-            plotModel.Series.Clear();
+            var model = new PlotModel { Title = "Квадратичная интерполяция" };
 
-            // Оригинальные точки
-            var scatterSeries = new ScatterSeries
+            if (points.Any())
             {
-                MarkerType = MarkerType.Circle,
-                MarkerSize = 6,
-                MarkerFill = OxyColors.Red
-            };
-
-            foreach (var point in originalPoints)
-            {
-                scatterSeries.Points.Add(new ScatterPoint(point.X, point.Y));
-            }
-
-            plotModel.Series.Add(scatterSeries);
-
-            // Интерполированные точки
-            if (originalPoints.Count > 2)
-            {
-                var interpolatedPoints = MethodQuadraticInterpolation(originalPoints);
-                var lineSeries = new LineSeries
+                var scatterSeries = new ScatterSeries { Title = "Исходные точки" };
+                foreach (var point in points)
                 {
-                    StrokeThickness = 2,
-                    LineStyle = LineStyle.Solid,
-                    Color = OxyColors.Blue
-                };
-
-                foreach (var point in interpolatedPoints)
-                {
-                    lineSeries.Points.Add(new DataPoint(point.X, point.Y));
+                    scatterSeries.Points.Add(new ScatterPoint(point.X, point.Y));
                 }
-
-                plotModel.Series.Add(lineSeries);
+                model.Series.Add(scatterSeries);
             }
 
-            plotModel.InvalidatePlot(true);
+            plotView.Model = model;
         }
-        List<MyDataPoint> MethodQuadraticInterpolation(List<MyDataPoint> points)
-        {
-            List<MyDataPoint> newPoints = new List<MyDataPoint>();
-
-            if (points.Count < 3)
-            {
-                return new List<MyDataPoint>();
-            }
-
-            for (int i = 0; i < points.Count - 2; i++)
-            {
-                double x0 = points[i].X;
-                double y0 = points[i].Y;
-                double x1 = points[i + 1].X;
-                double y1 = points[i + 1].Y;
-                double x2 = points[i + 2].X;
-                double y2 = points[i + 2].Y;
-
-                double a = ((y1 - y0) * (x2 - x0) - (y2 - y0) * (x1 - x0)) /
-                          ((x1 - x0) * (x2 - x0) * (x2 - x1));
-
-                double b = (y2 - y0 - a * (x2 * x2 - x0 * x0)) / (x2 - x0);
-
-                double c = y0 - a * x0 * x0 - b * x0;
-
-                for (double x = x0; x <= x2; x += 0.01)
-                {
-                    double y = a * x * x + b * x + c;
-                    newPoints.Add(new MyDataPoint(x, y));
-                }
-            }
-
-            return newPoints;
-        }
+        
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
-            originalPoints.Clear();
-            lstPoints.Items.Clear();
+            points.Clear();
+            lstPoints.ItemsSource = null;
             UpdatePlot();
         }
 
         private void BtnCalculate_Click(object sender, RoutedEventArgs e)
         {
-            if (originalPoints.Count < 3)
+            if (points.Count < 3)
             {
-                MessageBox.Show("Добавьте как минимум три точки.");
+                MessageBox.Show("Для квадратичной интерполяции нужно минимум 3 точки");
                 return;
             }
 
-            UpdatePlot();
+            // Сортируем точки по X для корректной интерполяции
+            var sortedPoints = points.OrderBy(p => p.X).ToList();
+
+            // Выполняем квадратичную интерполяцию для каждой тройки точек
+            var interpolatedSeries = new LineSeries { Title = "Интерполяция" };
+
+            for (int i = 0; i < sortedPoints.Count - 2; i++)
+            {
+                var p0 = sortedPoints[i];
+                var p1 = sortedPoints[i + 1];
+                var p2 = sortedPoints[i + 2];
+
+                // Решаем систему уравнений для нахождения коэффициентов параболы
+                double[,] matrix = {
+                    { p0.X * p0.X, p0.X, 1, p0.Y },
+                    { p1.X * p1.X, p1.X, 1, p1.Y },
+                    { p2.X * p2.X, p2.X, 1, p2.Y }
+                };
+
+                if (!SolveSystem(matrix, out double a, out double b, out double c))
+                {
+                    continue;
+                }
+
+                // Добавляем точки параболы между текущей и следующей точкой
+                double startX = p0.X;
+                double endX = p2.X;
+                int steps = 100;
+
+                for (int j = 0; j <= steps; j++)
+                {
+                    double x = startX + (endX - startX) * j / steps;
+                    double y = a * x * x + b * x + c;
+                    interpolatedSeries.Points.Add(new DataPoint(x, y));
+                }
+            }
+
+            // Обновляем график
+            var model = new PlotModel { Title = "Квадратичная интерполяция" };
+
+            // Добавляем исходные точки
+            var scatterSeries = new ScatterSeries { Title = "Исходные точки" };
+            foreach (var point in points)
+            {
+                scatterSeries.Points.Add(new ScatterPoint(point.X, point.Y));
+            }
+
+            model.Series.Add(scatterSeries);
+            model.Series.Add(interpolatedSeries);
+
+            plotView.Model = model;
+        }
+        private bool SolveSystem(double[,] matrix, out double a, out double b, out double c)
+        {
+            a = b = c = 0;
+
+            int n = matrix.GetLength(0);
+
+            // Прямой ход метода Гаусса
+            for (int i = 0; i < n; i++)
+            {
+                // Поиск максимального элемента в столбце
+                double maxEl = Math.Abs(matrix[i, i]);
+                int maxRow = i;
+                for (int k = i + 1; k < n; k++)
+                {
+                    if (Math.Abs(matrix[k, i]) > maxEl)
+                    {
+                        maxEl = Math.Abs(matrix[k, i]);
+                        maxRow = k;
+                    }
+                }
+
+                // Перестановка строк
+                if (maxRow != i)
+                {
+                    for (int k = i; k < n + 1; k++)
+                    {
+                        double tmp = matrix[maxRow, k];
+                        matrix[maxRow, k] = matrix[i, k];
+                        matrix[i, k] = tmp;
+                    }
+                }
+
+                // Приведение к треугольному виду
+                for (int k = i + 1; k < n; k++)
+                {
+                    double factor = matrix[k, i] / matrix[i, i];
+                    for (int j = i; j < n + 1; j++)
+                    {
+                        matrix[k, j] -= factor * matrix[i, j];
+                    }
+                }
+            }
+
+            // Обратный ход метода Гаусса
+            double[] solution = new double[n];
+            for (int i = n - 1; i >= 0; i--)
+            {
+                solution[i] = matrix[i, n] / matrix[i, i];
+                for (int k = i - 1; k >= 0; k--)
+                {
+                    matrix[k, n] -= matrix[k, i] * solution[i];
+                }
+            }
+
+            a = solution[0];
+            b = solution[1];
+            c = solution[2];
+
+            return true;
         }
     }
 }
