@@ -35,8 +35,7 @@
                     </ListView.View>
                 </ListView>
 
-                <Label Content="Квадратичный многочлен:"/>
-                <TextBox x:Name="txtPolynomial" Height="100" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True"/>
+                
             </StackPanel>
         </GroupBox>
 
