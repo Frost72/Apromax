@@ -9,36 +9,36 @@
         Title="Chebshev" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="280"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="246"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <!-- Левая панель параметров -->
-        <StackPanel Grid.Column="0" Margin="10" VerticalAlignment="Top">
+        <StackPanel Grid.Column="0" Margin="10,10,10,0" VerticalAlignment="Top" Height="374">
 
             <TextBlock Text="Интервал аппроксимации" FontWeight="Bold" Margin="0 0 0 10"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
+            <StackPanel Orientation="Horizontal" Margin="0 5 0 5" Width="196">
                 <TextBlock Text="X min:" Width="70" VerticalAlignment="Center"/>
-                <TextBox Name="TxtXMin" Width="180" Text="-1"/>
+                <TextBox Name="TxtXMin" Width="85" Text="-1"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0 5 0 15">
+            <StackPanel Orientation="Horizontal" Margin="0 5 0 15" Width="195">
                 <TextBlock Text="X max:" Width="70" VerticalAlignment="Center"/>
-                <TextBox Name="TxtXMax" Width="180" Text="1"/>
+                <TextBox Name="TxtXMax" Width="86" Text="1"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0 5 0 15">
+            <StackPanel Orientation="Horizontal" Margin="0 5 0 15" Width="214">
                 <TextBlock Text="Степень:" Width="70" VerticalAlignment="Center"/>
-                <TextBox Name="TxtDegree" Width="180" Text="5"/>
+                <TextBox Name="TxtDegree" Width="98" Text="5"/>
             </StackPanel>
 
             <Button Name="BtnBuild" Content="Построить" Width="120" Height="30" HorizontalAlignment="Left" Click="BtnBuild_Click" />
 
             <TextBlock Text="Узлы и значения функции:" FontWeight="Bold" Margin="0 20 0 5"/>
-            <TextBox Name="TxtNodesValues" Height="173" Width="260" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
+            <TextBox Name="TxtNodesValues" Height="173" Width="224" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
         </StackPanel>
-        
+
         <GroupBox Header="График" Grid.Column="1" Margin="10,0,0,0">
             <oxy:PlotView x:Name="PlotView" Grid.Column="1" Margin="10"/>
         </GroupBox>

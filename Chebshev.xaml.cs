@@ -27,24 +27,25 @@ namespace Apromax
     {
         public PlotModel PlotModel { get; private set; }
 
-        // Исходная функция, можно менять в коде или сделать UI для изменения
         public Func<double, double> Func { get; set; } = Math.Sin;
 
-        // Параметры аппроксимации с дефолтными значениями
         public double IntervalStart { get; set; } = -1;
         public double IntervalEnd { get; set; } = 1;
         public int Degree { get; set; } = 5;
 
-        // Коэффициенты Чебышева
         public double[] Coefficients { get; private set; }
 
-        // Текст для отображения узлов и значений
+
         public string NodesAndValuesText { get; private set; } = "";
         public Chebshev()
         {
             InitializeComponent();
 
-            PlotModel = new PlotModel { Title = "Аппроксимация многочленом Чебышева" };
+            PlotModel = new PlotModel
+            {
+                Title = "Аппроксимация многочленом Чебышева",
+                Subtitle = "Синим - исходная функция, Красным - аппроксимация"
+            };
             PlotModel.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Title = "x" });
             PlotModel.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "f(x)" });
 
