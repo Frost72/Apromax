@@ -23,7 +23,6 @@ namespace Apromax
     public partial class Quadratic : Window
     {
         private List<MyDataPoint> points = new List<MyDataPoint>();
-        private PlotModel plotModel;
         public Quadratic()
         {
             InitializeComponent();
