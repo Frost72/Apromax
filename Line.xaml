@@ -35,8 +35,7 @@
                     </ListView.View>
                 </ListView>
 
-                <Label Content="Уравнение прямой:"/>
-                <TextBox x:Name="txtEquation" Height="60" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True"/>
+                
             </StackPanel>
         </GroupBox>
 
